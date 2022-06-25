@@ -14,7 +14,6 @@ import errorHandler from './errorHandler';
 import notFoundHandler from './notFound';
 import cors from './cors';
 import staticMiddleware from './static';
-import domainMiddleware from './domain';
 // import favicon from 'serve-favicon';
 // import path from 'path';
 import maintenanceMode from './maintenanceMode';
@@ -41,8 +40,6 @@ const TEN_YEARS = 1000 * 60 * 60 * 24 * 365 * 10;
 
 export default function attachMiddlewares (app, server) {
   setupExpress(app);
-
-  app.use(domainMiddleware(server, mongoose));
 
   if (!IS_PROD && !DISABLE_LOGGING) app.use(morgan('dev'));
 
