@@ -37,6 +37,11 @@ if (IS_PROD) {
           winston.format.json(),
         ),
       }));
+  } else {
+    logger
+      .add(new winston.transports.Stream({
+        stream: fs.createWriteStream('/dev/null')
+      }));
   }
 
 // Do not log anything when testing unless specified
