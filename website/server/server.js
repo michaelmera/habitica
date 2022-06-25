@@ -26,8 +26,15 @@ app.set('port', nconf.get('PORT'));
 attachMiddlewares(app, server);
 
 server.on('request', app);
-server.listen(app.get('port'), () => {
-  logger.info(`Express server listening on port ${app.get('port')}`);
-});
+
+if (typeof(PhusionPassenger) !== 'undefined') {
+  server.listen('passenger', () => {
+    logger.info(`Express server listening on passenger socket`);
+  });
+} else {
+  server.listen(app.get('port'), () => {
+    logger.info(`Express server listening on port ${app.get('port')}`);
+  });
+}
 
 export default server;
