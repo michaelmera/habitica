@@ -20,6 +20,5 @@ const logger = require('./libs/logger').default;
 
 const IS_PROD = nconf.get('IS_PROD');
 const IS_DEV = nconf.get('IS_DEV');
-const CORES = Number(nconf.get('WEB_CONCURRENCY')) || 0;
 
 module.exports = require('./server.js');
