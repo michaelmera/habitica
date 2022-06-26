@@ -1,6 +1,7 @@
 // Logger utility
 import winston from 'winston';
 import nconf from 'nconf';
+import fs from 'fs';
 import _ from 'lodash';
 import {
   CustomError,
