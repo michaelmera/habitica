@@ -106,6 +106,9 @@ async function registerLocal (req, res, { isV3 = false }) {
     },
   });
 
+  // reject all new users
+  throw new NotAuthorized('usernameTaken')
+
   const validationErrors = req.validationErrors();
   if (validationErrors) throw validationErrors;
 
