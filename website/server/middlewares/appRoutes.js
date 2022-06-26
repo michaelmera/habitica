@@ -3,7 +3,6 @@ import expressValidator from 'express-validator';
 import path from 'path';
 import analytics from './analytics';
 import setupBody from './setupBody';
-import rateLimiter from './rateLimiter';
 import setupExpress from '../libs/setupExpress';
 import * as routes from '../libs/routes';
 
@@ -27,7 +26,7 @@ app.use('/', topLevelRouter);
 
 const v3Router = express.Router(); // eslint-disable-line new-cap
 routes.walkControllers(v3Router, API_V3_CONTROLLERS_PATH);
-app.use('/api/v3', rateLimiter, v3Router);
+app.use('/api/v3', v3Router);
 
 // API v4 proxies API v3 routes by default.
 // It can also disable or override v3 routes
