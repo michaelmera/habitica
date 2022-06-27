@@ -1349,14 +1349,6 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
   const group = this;
   const update = {};
 
-  if (group.memberCount <= 1 && group.privacy === 'private' && group.hasNotCancelled()) {
-    throw new NotAuthorized(shared.i18n.t('cannotDeleteActiveGroup'));
-  }
-
-  if (group.leader === user._id && group.hasNotCancelled()) {
-    throw new NotAuthorized(shared.i18n.t('leaderCannotLeaveGroupWithActiveGroup'));
-  }
-
   // only remove user from challenges if it's set to leave-challenges
   if (keepChallenges === 'leave-challenges') {
     const challenges = await Challenge.find({
