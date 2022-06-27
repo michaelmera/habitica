@@ -120,42 +120,11 @@
             </button>
           </div>
         </div>
-        <div class="row pricing">
-          <div class="col-5">
-            <div class="dollar">
-              $
-            </div>
-            <div class="number">
-              9
-            </div>
-            <div class="name">
-              <div>Group Owner</div>
-              <div>Subscription</div>
-            </div>
-          </div>
-          <div class="col-1">
-            <div class="plus">
-              +
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="dollar">
-              $
-            </div>
-            <div class="number">
-              3
-            </div>
-            <div class="name">
-              <div>Each Additional</div>
-              <div>Member</div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
     <b-modal
       id="group-plan-modal"
-      :title="activePage === PAGES.CREATE_GROUP ? 'Create your Group' : 'Select Payment'"
+      :title="'Create your Group'"
       size="md"
       hide-footer="hide-footer"
     >
@@ -253,35 +222,6 @@
 </template>
 
 <style lang="scss" scoped>
-  #upgrading-group {
-    .amount-section {
-      position: relative;
-    }
-
-    .dollar {
-      position: absolute;
-      left: -1em;
-      top: 1em;
-    }
-
-    .purple-box {
-      color: #bda8ff;
-    }
-
-    .number {
-      font-weight: bold;
-      color: #fff;
-    }
-
-    .plus .svg-icon{
-      width: 24px;
-    }
-
-    .payment-providers {
-      width: 350px;
-    }
-  }
-
   .header {
     background: #432874;
     background: linear-gradient(180deg, #4F2A93 0%, #432874 100%);
@@ -361,78 +301,6 @@
     font-size: 48px;
     margin-top: 1em;
   }
-
-  .pricing {
-    margin-top: 2em;
-    margin-bottom: 4em;
-
-    .dollar, .number, .name {
-      display: inline-block;
-      vertical-align: bottom;
-      color: #a5a1ac;
-    }
-
-    .plus {
-      font-size: 34px;
-      color: #a5a1ac;
-    }
-
-    .dollar {
-      margin-bottom: 1.5em;
-      font-size: 32px;
-      font-weight: bold;
-    }
-
-    .name {
-      font-size: 24px;
-      margin-bottom: .8em;
-      margin-left: .5em;
-    }
-
-    .number {
-      font-size: 72px;
-      font-weight: bolder;
-    }
-  }
-
-  .payment-options {
-    margin-bottom: 4em;
-
-    .purple-box {
-      background-color: #4f2a93;
-      color: #fff;
-      padding: .5em;
-      border-radius: 8px;
-      width: 200px;
-      height: 215px;
-
-      .dollar {
-      }
-
-      .number {
-        font-size: 60px;
-      }
-
-      .name {
-        width: 100px;
-        margin-left: .3em;
-      }
-
-      .plus {
-        width: 100%;
-        text-align: center;
-      }
-
-      div {
-        display: inline-block;
-      }
-    }
-
-    .box, .purple-box {
-      display: inline-block;
-      vertical-align: bottom;
-    }
-  }
 </style>
 
 <script>
@@ -440,6 +308,7 @@ import paymentsMixin from '../../mixins/payments';
 import { mapState } from '@/libs/store';
 import positiveIcon from '@/assets/svg/positive.svg';
 import paymentsButtons from '@/components/payments/buttons/list';
+import axios from 'axios';
 
 export default {
   components: {
@@ -455,13 +324,11 @@ export default {
       PAGES: {
         CREATE_GROUP: 'create-group',
         UPGRADE_GROUP: 'upgrade-group',
-        PAY: 'pay',
       },
       PAYMENTS: {
         AMAZON: 'amazon',
         STRIPE: 'stripe',
       },
-      paymentMethod: '',
       newGroup: {
         type: 'guild',
         privacy: 'private',
@@ -499,35 +366,24 @@ export default {
       this.activePage = page;
       window.scrollTo(0, 0);
     },
-    createGroup () {
-      this.changePage(this.PAGES.PAY);
-    },
-    pay (paymentMethod) {
-      const subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
-      const paymentData = {
-        subscription: subscriptionKey,
-        coupon: null,
-      };
-
+    async createGroup () {
       if (this.upgradingGroup && this.upgradingGroup._id) {
-        paymentData.groupId = this.upgradingGroup._id;
-        paymentData.group = this.upgradingGroup;
+        this.$router.push(`/group-plans/${this.upgradingGroup._id}/task-information`);
       } else {
-        paymentData.groupToCreate = this.newGroup;
+        let response = await axios.post('/api/v3/groups/create-plan', {
+          groupToCreate: this.newGroup,
+        });
+
+        if (response.state >= 400) {
+          alert(`Error: ${response.message}`);
+          return;
+        }
+
+        let newGroup = response.data.data
+        this.user.guilds.push(newGroup._id);
+        this.$store.state.groupPlans.push(newGroup);
+        this.$router.push(`/group-plans/${newGroup._id}/task-information`);
       }
-
-      this.paymentMethod = paymentMethod;
-
-      if (this.paymentMethod === this.PAYMENTS.AMAZON) {
-        paymentData.type = 'subscription';
-        return paymentData;
-      }
-
-      if (this.paymentMethod === this.PAYMENTS.STRIPE) {
-        this.redirectToStripe(paymentData);
-      }
-
-      return null;
     },
   },
 };

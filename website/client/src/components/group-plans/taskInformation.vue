@@ -299,10 +299,6 @@ export default {
     if (!this.searchId) this.searchId = this.groupId;
     this.load();
 
-    if (this.$route.query.showGroupOverview) {
-      this.$root.$emit('bv::show::modal', 'group-plan-overview');
-    }
-
     this.$root.$on('habitica:team-sync', () => {
       this.loadTasks();
       this.loadGroupCompletedTodos();
