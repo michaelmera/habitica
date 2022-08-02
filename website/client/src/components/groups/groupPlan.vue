@@ -1,7 +1,7 @@
 <template>
   <!-- @TODO: Move to group plans folder-->
   <div>
-    <group-plan-creation=modal />
+    <group-plan-creation-modal />
     <div>
       <div class="header">
         <h1 class="text-center">
@@ -114,7 +114,7 @@
           <div class="col-12 text-center">
             <button
               class="btn btn-primary create-group"
-              @click="launchModal('group-plan-creation-modal')"
+              @click="launchModal('create-page')"
             >
               Create Your New Group
             </button>
@@ -377,13 +377,9 @@ export default {
   },
   methods: {
     launchModal () {
-      console.log('hello world');
-      this.changePage(this.PAGES.CREATE_GROUP);
-      this.$root.$emit('bv::show::modal', 'group-plan-creation-modal');
-    },
-    changePage (page) {
-      this.activePage = page;
-      window.scrollTo(0, 0);
+      console.log('i am creating a group');
+      // this.changePage(this.PAGES.CREATE_GROUP);
+      this.$root.$emit('bv::show::modal', 'create-group');
     },
     async createGroup () {
       if (this.upgradingGroup && this.upgradingGroup._id) {
