@@ -107,7 +107,7 @@
       >
         <div class="row">
           <h1 class="col-12 text-center purple-header">
-            Create your Group today!
+            Create Your Group Today!
           </h1>
         </div>
         <div class="row">
@@ -116,8 +116,33 @@
               class="btn btn-primary create-group"
               @click="launchModal('create-page')"
             >
-              Create Your New Group
+              Create Your New Group!
             </button>
+          </div>
+        </div>
+        <div class="row pricing justify-content-center align-items-center">
+          <div class="dollar">
+            $
+          </div>
+          <div class="number">
+            9
+          </div>
+          <div class="name">
+            <div>Group Owner</div>
+            <div>Subscription</div>
+          </div>
+          <div class="plus">
+            +
+          </div>
+          <div class="dollar">
+            $
+          </div>
+          <div class="number">
+            3
+          </div>
+          <div class="name">
+            <div>Each Additional</div>
+            <div>Member</div>
           </div>
         </div>
       </div>
@@ -133,8 +158,8 @@
 
     .dollar {
       position: absolute;
-      left: -1em;
-      top: 1em;
+      left: -16px;
+      top: 16px;
     }
 
     .purple-box {
@@ -166,9 +191,9 @@
     background: #432874;
     background: linear-gradient(180deg, #4F2A93 0%, #432874 100%);
     color: #fff;
-    padding: 2em;
+    padding: 32px;
     height: 340px;
-    margin-bottom: 2em;
+    margin-bottom: 32px;
     margin-left: -12px;
     margin-right: -12px;
 
@@ -192,6 +217,7 @@
 
     .box {
       height: 416px;
+      border-radius: 8px;
     }
 
     h2 {
@@ -234,17 +260,19 @@
   button.create-group {
     width: 330px;
     height: 96px;
+    border-radius: 8px;
+    font-size: 1.5rem;
   }
 
   .purple-header {
     color: #6133b4;
     font-size: 48px;
-    margin-top: 1em;
+    margin-top: 16px;
   }
 
   .pricing {
-    margin-top: 2em;
-    margin-bottom: 4em;
+    margin-top: 32px;
+    margin-bottom: 64px;
 
     .dollar, .number, .name {
       display: inline-block;
@@ -253,30 +281,32 @@
     }
 
     .plus {
-      font-size: 34px;
+      font-size: 2.125rem;
       color: #a5a1ac;
+      margin-left: 16px;
+      margin-right: 16px;
     }
 
     .dollar {
-      margin-bottom: 1.5em;
-      font-size: 32px;
+      margin-bottom: 24px;
+      font-size: 2rem;
       font-weight: bold;
     }
 
     .name {
-      font-size: 24px;
-      margin-bottom: .8em;
-      margin-left: .5em;
+      font-size: 1.5rem;
+      margin-left: 8px;
+      margin-right: 8px;
     }
 
     .number {
-      font-size: 72px;
+      font-size: 4.5rem;
       font-weight: bolder;
     }
   }
 
   .payment-options {
-    margin-bottom: 4em;
+    margin-bottom: 64px;
 
     h4 {
       color: #34313a;
@@ -285,7 +315,7 @@
     .purple-box {
       background-color: #4f2a93;
       color: #fff;
-      padding: .5em;
+      padding: 8px;
       border-radius: 8px;
       width: 200px;
       height: 215px;
@@ -299,7 +329,7 @@
 
       .name {
         width: 100px;
-        margin-left: .3em;
+        margin-left: 4.8px;
       }
 
       .plus {
