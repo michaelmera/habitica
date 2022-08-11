@@ -52,6 +52,7 @@
           </div>
         </div>
       </div>
+      <!-- Upgrading an existing group -->
       <div
         v-if="upgradingGroup._id"
         id="upgrading-group"
@@ -101,6 +102,7 @@
           </div>
         </div>
       </div>
+      <!-- Create a new group -->
       <div
         v-if="!upgradingGroup._id"
         class="container col-6 offset-3 create-option"
