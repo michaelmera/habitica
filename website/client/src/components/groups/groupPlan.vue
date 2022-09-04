@@ -304,11 +304,11 @@
 </style>
 
 <script>
+import axios from 'axios';
 import paymentsMixin from '../../mixins/payments';
 import { mapState } from '@/libs/store';
 import positiveIcon from '@/assets/svg/positive.svg';
 import paymentsButtons from '@/components/payments/buttons/list';
-import axios from 'axios';
 
 export default {
   components: {
@@ -370,7 +370,7 @@ export default {
       if (this.upgradingGroup && this.upgradingGroup._id) {
         this.$router.push(`/group-plans/${this.upgradingGroup._id}/task-information`);
       } else {
-        let response = await axios.post('/api/v3/groups/create-plan', {
+        const response = await axios.post('/api/v3/groups/create-plan', {
           groupToCreate: this.newGroup,
         });
 
@@ -379,7 +379,7 @@ export default {
           return;
         }
 
-        let newGroup = response.data.data
+        const newGroup = response.data.data;
         this.user.guilds.push(newGroup._id);
         this.$store.state.groupPlans.push(newGroup);
         this.$router.push(`/group-plans/${newGroup._id}/task-information`);
