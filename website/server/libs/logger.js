@@ -1,6 +1,5 @@
 // Logger utility
 import winston from 'winston';
-import { Loggly } from 'winston-loggly-bulk';
 import nconf from 'nconf';
 import _ from 'lodash';
 import {
@@ -11,9 +10,6 @@ const IS_PROD = nconf.get('IS_PROD');
 const IS_TEST = nconf.get('IS_TEST');
 const ENABLE_LOGS_IN_TEST = nconf.get('ENABLE_CONSOLE_LOGS_IN_TEST') === 'true';
 const ENABLE_CONSOLE_LOGS_IN_PROD = nconf.get('ENABLE_CONSOLE_LOGS_IN_PROD') === 'true';
-
-const LOGGLY_TOKEN = nconf.get('LOGGLY_TOKEN');
-const LOGGLY_SUBDOMAIN = nconf.get('LOGGLY_SUBDOMAIN');
 
 const logger = winston.createLogger();
 
@@ -43,14 +39,6 @@ if (IS_PROD) {
       }));
   }
 
-  if (LOGGLY_TOKEN && LOGGLY_SUBDOMAIN) {
-    logger.add(new Loggly({
-      inputToken: LOGGLY_TOKEN,
-      subdomain: LOGGLY_SUBDOMAIN,
-      tags: ['Winston-NodeJS'],
-      json: true,
-    }));
-  }
 // Do not log anything when testing unless specified
 } else if (!IS_TEST || (IS_TEST && ENABLE_LOGS_IN_TEST)) {
   logger
