@@ -92,7 +92,6 @@
               </div>
             </div>
             <div class="box payment-providers">
-              <h3>Choose your payment method</h3>
               <payments-buttons
                 :stripe-fn="() => pay(PAYMENTS.STRIPE)"
                 :amazon-data="pay(PAYMENTS.AMAZON)"
@@ -210,7 +209,6 @@
         class="col-12"
       >
         <div class="text-center">
-          <h3>Choose your payment method</h3>
           <payments-buttons
             :stripe-fn="() => pay(PAYMENTS.STRIPE)"
             :amazon-data="pay(PAYMENTS.AMAZON)"
@@ -222,6 +220,42 @@
 </template>
 
 <style lang="scss" scoped>
+  #upgrading-group {
+    .amount-section {
+      position: relative;
+    }
+
+    .dollar {
+      position: absolute;
+      left: -1em;
+      top: 1em;
+    }
+
+    .purple-box {
+      color: #bda8ff;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    }
+
+    .number {
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .plus .svg-icon{
+      width: 24px;
+    }
+
+    .payment-providers {
+      width: 350px;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+  }
+
   .header {
     background: #432874;
     background: linear-gradient(180deg, #4F2A93 0%, #432874 100%);
@@ -300,6 +334,82 @@
     color: #6133b4;
     font-size: 48px;
     margin-top: 1em;
+  }
+
+  .pricing {
+    margin-top: 2em;
+    margin-bottom: 4em;
+
+    .dollar, .number, .name {
+      display: inline-block;
+      vertical-align: bottom;
+      color: #a5a1ac;
+    }
+
+    .plus {
+      font-size: 34px;
+      color: #a5a1ac;
+    }
+
+    .dollar {
+      margin-bottom: 1.5em;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .name {
+      font-size: 24px;
+      margin-bottom: .8em;
+      margin-left: .5em;
+    }
+
+    .number {
+      font-size: 72px;
+      font-weight: bolder;
+    }
+  }
+
+  .payment-options {
+    margin-bottom: 4em;
+
+    h4 {
+      color: #34313a;
+    }
+
+    .purple-box {
+      background-color: #4f2a93;
+      color: #fff;
+      padding: .5em;
+      border-radius: 8px;
+      width: 200px;
+      height: 215px;
+
+      .dollar {
+      }
+
+      .number {
+        font-size: 60px;
+      }
+
+      .name {
+        width: 100px;
+        margin-left: .3em;
+      }
+
+      .plus {
+        width: 100%;
+        text-align: center;
+      }
+
+      div {
+        display: inline-block;
+      }
+    }
+
+    .box, .purple-box {
+      display: inline-block;
+      vertical-align: bottom;
+    }
   }
 </style>
 
