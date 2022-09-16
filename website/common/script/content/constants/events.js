@@ -15,22 +15,11 @@ export const EVENTS = {
     season: 'normal',
     npcImageSuffix: '',
   },
-  fall2022: {
-    start: '2022-09-20T08:00-04:00',
-    end: '2022-10-31T20:00-04:00',
-    npcImageSuffix: '_fall',
-    season: 'fall',
-    gear: true,
-  },
-  beforeGala: {
-    start: '2022-07-31T20:00-04:00',
-    end: '2022-09-20T08:00-04:00',
-    season: 'normal',
-    npcImageSuffix: '',
-  },
   bundle202209: {
     start: '2022-09-13T08:00-04:00',
     end: '2022-09-30T20:00-04:00',
+    season: 'normal',
+    npcImageSuffix: '',
   },
   potions202208: {
     start: '2022-08-16T08:00-04:00',
