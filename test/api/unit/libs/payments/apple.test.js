@@ -416,8 +416,18 @@ describe('Apple Payments', () => {
     });
 
     it('errors when a user is using the same subscription', async () => {
+      payments.createSubscription.restore();
       user = new User();
       await user.save();
+      iap.getPurchaseData.restore();
+
+      iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
+        .returns([{
+          expirationDate: moment.utc().add({ day: 1 }).toDate(),
+          productId: sku,
+          transactionId: token,
+          originalTransactionId: token,
+        }]);
 
       await applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing);
 
