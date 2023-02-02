@@ -402,6 +402,7 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
         if (user._id !== chatMsg.uuid && chatMsg.flagCount >= CHAT_FLAG_LIMIT_FOR_HIDING) {
           return undefined;
         }
+        chatMsg.flagCount = 0;
       }
 
       return chatMsg;
